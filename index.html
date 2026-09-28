@@ -39,7 +39,7 @@ spinBtn.disabled=true;setStatus("Vérification du code…");
 try{
 const response=await fetch(FUNCTION_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({code,initData})});
 const data=await response.json().catch(()=>({}));
-if(!response.ok||!data.success){if(data.error==="invalid_or_used_code")throw new Error("Code invalide ou déjà utilisé.");if(data.error==="invalid_or_expired_telegram_data")throw new Error("Session Telegram expirée. Ferme puis rouvre la Mini App.");throw new Error("Erreur HTTP "+response.status+" : "+(data.error||"réponse inconnue"))
+if(!response.ok||!data.success){if(data.error==="invalid_or_used_code")throw new Error("Code invalide ou déjà utilisé.");if(data.error==="invalid_or_expired_telegram_data")throw new Error("Session Telegram expirée. Ferme puis rouvre la Mini App.");throw new Error("Erreur HTTP "+response.status+" : "+(data.error||"réponse inconnue"))}
 const prize=String(data.prize||""),index=outcomes.indexOf(prize);if(index<0)throw new Error("Résultat reçu non reconnu.");
 form.style.display="none";game.style.display="block";result.style.display="none";
 const target=index*60+30,rotation=6*360+(360-target);requestAnimationFrame(()=>wheel.style.transform="rotate("+rotation+"deg)");
